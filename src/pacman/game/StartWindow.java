@@ -76,7 +76,7 @@ public class StartWindow extends JFrame implements ActionListener {
 
     // Title Label
     private static final int LABEL_WIDTH = 80;
-    private static final int LABEL_HEIGHT = 50;
+    private static final int LABEL_HEIGHT = 40;
     private static final int LABEL_X_POSITION = (WINDOW_SIZE-LABEL_WIDTH)/2;
     private static final int LABEL_Y_POSITION = 10;
 
@@ -84,7 +84,7 @@ public class StartWindow extends JFrame implements ActionListener {
     private static final int STATS_LABEL_WIDTH = 400;
     private static final int STATS_LABEL_HEIGHT = 20;
     private static final int STATS_LABEL_X_POSITION = (WINDOW_SIZE-STATS_LABEL_WIDTH)/2;
-    private static final int STATS_LABEL_Y_POSITION = 20;
+    private static final int STATS_LABEL_Y_POSITION = 30;
     private static final int STATS_LABEL_GAP = 10;
 
     // Choose Label
@@ -504,7 +504,7 @@ public class StartWindow extends JFrame implements ActionListener {
     private void startGame() {
         if(!nickname.getText().contains(":")){
             Player currentPlayer = new Player(nickname.getText());
-            PacmanGame pac = new PacmanGame(chosenMap, chosenSpeed, chosenCharacter);
+            PacmanGame pac = new PacmanGame(chosenMap, chosenSpeed, chosenCharacter, currentPlayer);
             pac.setVisible(true);
             pac.setTitle("Pacman");
             pac.setSize(1880,1020);

@@ -12,21 +12,9 @@ import javax.swing.Timer;
 public class Model extends JPanel implements ActionListener {
 
     //Zycia
+    private Player player;
 
     private GameVariable gameVariable;
-    ///Struktura//////////////////
-    /*
-    private int[] lives = {3};
-    //Wynik
-    private int[] score = {0};
-    //Zmienna mowiaca czy jestesmy w grze
-    private boolean[] inGame = {false};
-    //Zmienna mowiaca czy pacman zyje
-    private boolean[] dying = {false};
-    /
-     */
-    ////////////////////////////////
-
 
     //Konfiguracja gry, zawierajaca role, mape, szybkosc gry
     private GameConfiguration gameConfiguration;
@@ -156,29 +144,10 @@ public class Model extends JPanel implements ActionListener {
     private int GameSpeed2 = 15;
     private int GameSpeed3 = 10;
 
-    public Model() {
-        this.gameVariable = new GameVariable();
-        this.gameConfiguration = new GameConfiguration();
-        this.pacman = new Pacman(gameConfiguration.getPacmanRole(), PACMAN_SPEED, BLOCK_SIZE, N_BLOCKS_WIDTH, screenData, gameVariable);
-        this.clyde = new Clyde(BLOCK_SIZE, N_BLOCKS_WIDTH, screenData, pacman);
-        this.blinky = new Blinky(BLOCK_SIZE, N_BLOCKS_WIDTH, screenData, pacman);
-        this.pinky = new Pinky(BLOCK_SIZE, N_BLOCKS_WIDTH, screenData, pacman);
-        this.inky = new Inky(BLOCK_SIZE, N_BLOCKS_WIDTH, screenData, pacman);
-        //Zaladowanie zdjec
-        loadImages();
-        //Inicjalizacja obrazkow
-        initVariables();
-        //Funkcja pozwolajaca na sterowanie pacmanem
-        addKeyListener(new TAdapter());
-        //Ustawienie widocznosci
-        setFocusable(true);
-        //Zainicjowanie gry
-        initGame();
-    }
-
-    public Model(GameConfiguration gameConfiguration){
+    public Model(GameConfiguration gameConfiguration, Player player){
         this.gameVariable = new GameVariable();
         this.gameConfiguration = gameConfiguration;
+        this.player = player;
         this.pacman = new Pacman(gameConfiguration.getPacmanRole(), PACMAN_SPEED, BLOCK_SIZE, N_BLOCKS_WIDTH, screenData, gameVariable);
         this.clyde = new Clyde(BLOCK_SIZE, N_BLOCKS_WIDTH, screenData, pacman);
         this.blinky = new Blinky(BLOCK_SIZE, N_BLOCKS_WIDTH, screenData, pacman);
@@ -310,6 +279,8 @@ public class Model extends JPanel implements ActionListener {
         gameVariable.setLives((gameVariable.getLives() - 1));
         if (gameVariable.getLives() == 0) {
             gameVariable.setInGame(false);
+            player.updateScore(gameVariable.getScore());
+            StatisticsService.updateStatistics(player, "ranking.txt");
         }
         continueLevel();
     }
