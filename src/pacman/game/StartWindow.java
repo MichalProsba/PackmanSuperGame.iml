@@ -510,6 +510,7 @@ public class StartWindow extends JFrame implements ActionListener {
             pac.setSize(1880,1020);
             pac.setDefaultCloseOperation(EXIT_ON_CLOSE);
             pac.setLocationRelativeTo(null);
+            this.dispose();
         }else{
             this.setEnabled(false);
             alertWindow = new JFrame("Alert");
