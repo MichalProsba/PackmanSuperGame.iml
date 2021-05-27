@@ -508,6 +508,7 @@ public class StartWindow extends JFrame implements ActionListener {
             pac.setVisible(true);
             pac.setTitle("Pacman");
             pac.setSize(1880,1020);
+            pac.setIconImage(pacmanImage);
             pac.setDefaultCloseOperation(EXIT_ON_CLOSE);
             pac.setLocationRelativeTo(null);
             this.dispose();
