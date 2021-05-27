@@ -12,8 +12,8 @@ public class Blinky extends Ghost{
 
     }
 
-    public Blinky(int BLOCK_SIZE, int N_BLOCKS_WIDTH, short[] screenData, Pacman pacman){
-        super(BLOCK_SIZE, N_BLOCKS_WIDTH, screenData ,pacman);
+    public Blinky(int BLOCK_SIZE, int N_BLOCKS_WIDTH, int N_BLOCKS_HEIGHT, short[] screenData, Pacman pacman){
+        super(BLOCK_SIZE, N_BLOCKS_WIDTH, N_BLOCKS_HEIGHT, screenData ,pacman);
         blinkyImage = new ImageIcon("Images/Ghosts/blinky.gif").getImage();
     }
 
@@ -64,12 +64,11 @@ public class Blinky extends Ghost{
                     ghost_dy = -ghost_dy;
                 }
             } else {
-                distance = Math.sqrt(Math.pow(pacman.pacman_x - ghost_x, 2) + Math.pow(pacman.pacman_y - ghost_y, 2));
-                minDistance = distance;
+                minDistance = BLOCK_SIZE * (N_BLOCKS_WIDTH + N_BLOCKS_HEIGHT);
                 indexMinDistance = 0;
                 for(int i = 0; i < count; i++){
-                    distance = Math.sqrt(Math.pow(pacman.pacman_x - ghost_x + dx[i], 2) + Math.pow(pacman.pacman_y - ghost_y + dy[i], 2));
-                    if(minDistance < distance){
+                    distance = Math.sqrt(Math.pow(pacman.pacman_x - ghost_x - dx[i] * BLOCK_SIZE, 2) + Math.pow(pacman.pacman_y - ghost_y - dy[i] * BLOCK_SIZE, 2));
+                    if(minDistance > distance){
                         minDistance = distance;
                         indexMinDistance = i;
                     }

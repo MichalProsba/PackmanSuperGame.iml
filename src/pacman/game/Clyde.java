@@ -12,8 +12,8 @@ public class Clyde extends Ghost{
 
     }
 
-    public Clyde(int BLOCK_SIZE, int N_BLOCKS_WIDTH, short[] screenData, Pacman pacman){
-        super(BLOCK_SIZE, N_BLOCKS_WIDTH, screenData ,pacman);
+    public Clyde(int BLOCK_SIZE, int N_BLOCKS_WIDTH, int N_BLOCKS_HEIGHT, short[] screenData, Pacman pacman){
+        super(BLOCK_SIZE, N_BLOCKS_WIDTH, N_BLOCKS_HEIGHT, screenData ,pacman);
         clydeImage = new ImageIcon("Images/Ghosts/clyde.gif").getImage();
     }
 
@@ -65,7 +65,6 @@ public class Clyde extends Ghost{
                 } else {
 
                     count = (int) (Math.random() * count);
-
                     if (count > 3) {
                         count = 3;
                     }

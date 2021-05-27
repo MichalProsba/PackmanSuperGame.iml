@@ -149,10 +149,10 @@ public class Model extends JPanel implements ActionListener {
         this.gameConfiguration = gameConfiguration;
         this.player = player;
         this.pacman = new Pacman(gameConfiguration.getPacmanRole(), PACMAN_SPEED, BLOCK_SIZE, N_BLOCKS_WIDTH, screenData, gameVariable);
-        this.clyde = new Clyde(BLOCK_SIZE, N_BLOCKS_WIDTH, screenData, pacman);
-        this.blinky = new Blinky(BLOCK_SIZE, N_BLOCKS_WIDTH, screenData, pacman);
-        this.pinky = new Pinky(BLOCK_SIZE, N_BLOCKS_WIDTH, screenData, pacman);
-        this.inky = new Inky(BLOCK_SIZE, N_BLOCKS_WIDTH, screenData, pacman);
+        this.clyde = new Clyde(BLOCK_SIZE, N_BLOCKS_WIDTH, N_BLOCKS_HEIGHT, screenData, pacman);
+        this.blinky = new Blinky(BLOCK_SIZE, N_BLOCKS_WIDTH, N_BLOCKS_HEIGHT, screenData, pacman);
+        this.pinky = new Pinky(BLOCK_SIZE, N_BLOCKS_WIDTH, N_BLOCKS_HEIGHT, screenData, pacman);
+        this.inky = new Inky(BLOCK_SIZE, N_BLOCKS_WIDTH, N_BLOCKS_HEIGHT, screenData, pacman);
         //Zaladowanie zdjec
         loadImages();
         //Inicjalizacja obrazkow

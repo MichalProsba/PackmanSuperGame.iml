@@ -6,13 +6,14 @@ import javax.swing.ImageIcon;
 public class Pinky extends Ghost{
     //Zdjecie Clyda
     public Image pinkyImage;
+    private final int lookForward = 4;
 
     public Pinky(){
 
     }
 
-    public Pinky(int BLOCK_SIZE, int N_BLOCKS_WIDTH, short[] screenData, Pacman pacman){
-        super(BLOCK_SIZE, N_BLOCKS_WIDTH, screenData ,pacman);
+    public Pinky(int BLOCK_SIZE, int N_BLOCKS_WIDTH, int N_BLOCKS_HEIGHT, short[] screenData, Pacman pacman){
+        super(BLOCK_SIZE, N_BLOCKS_WIDTH, N_BLOCKS_HEIGHT, screenData ,pacman);
         pinkyImage = new ImageIcon("Images/Ghosts/pinky.gif").getImage();
     }
 
@@ -21,6 +22,9 @@ public class Pinky extends Ghost{
 
         int pos;
         int count;
+        double distance;
+        double minDistance;
+        int indexMinDistance;
 
         if (ghost_x % BLOCK_SIZE == 0 && ghost_y % BLOCK_SIZE == 0) {
             pos = ghost_x / BLOCK_SIZE + N_BLOCKS_WIDTH * (int) (ghost_y / BLOCK_SIZE);
@@ -62,15 +66,35 @@ public class Pinky extends Ghost{
                 }
 
             } else {
-
-                count = (int) (Math.random() * count);
-
-                if (count > 3) {
-                    count = 3;
+                minDistance = BLOCK_SIZE * (N_BLOCKS_WIDTH + N_BLOCKS_HEIGHT);
+                indexMinDistance = 0;
+                for(int i = 0; i < count; i++){
+                    //W Lewo
+                    if(pacman.req_dx == -1 && pacman.req_dy == 0){
+                        distance = Math.sqrt(Math.pow(-lookForward * BLOCK_SIZE + pacman.pacman_x - ghost_x - dx[i] * BLOCK_SIZE, 2) + Math.pow(pacman.pacman_y - ghost_y - dy[i] * BLOCK_SIZE, 2));
+                    }
+                    //W Prawo
+                    else if(pacman.req_dx == 1 && pacman.req_dy == 0){
+                        distance = Math.sqrt(Math.pow(lookForward * BLOCK_SIZE + pacman.pacman_x - ghost_x - dx[i] * BLOCK_SIZE, 2) + Math.pow(pacman.pacman_y - ghost_y - dy[i] * BLOCK_SIZE, 2));
+                    }
+                    //W gore
+                    else if(pacman.req_dx == 0 && pacman.req_dy == -1){
+                        distance = Math.sqrt(Math.pow(pacman.pacman_x - ghost_x - dx[i] * BLOCK_SIZE, 2) + Math.pow(-lookForward * BLOCK_SIZE + pacman.pacman_y - ghost_y - dy[i] * BLOCK_SIZE, 2));
+                    }
+                    //W dol
+                    else if(pacman.req_dx == 0 && pacman.req_dy == 1){
+                        distance = Math.sqrt(Math.pow(pacman.pacman_x - ghost_x - dx[i] * BLOCK_SIZE, 2) + Math.pow(lookForward * BLOCK_SIZE + pacman.pacman_y - ghost_y - dy[i] * BLOCK_SIZE, 2));
+                    }
+                    else{
+                        distance = Math.sqrt(Math.pow(pacman.pacman_x - ghost_x, 2) + Math.pow(pacman.pacman_y - ghost_y, 2));
+                    }
+                    if(minDistance > distance){
+                        minDistance = distance;
+                        indexMinDistance = i;
+                    }
                 }
-
-                ghost_dx = dx[count];
-                ghost_dy = dy[count];
+                ghost_dx = dx[indexMinDistance];
+                ghost_dy = dy[indexMinDistance];
             }
 
         }

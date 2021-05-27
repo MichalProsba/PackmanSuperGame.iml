@@ -21,6 +21,8 @@ public class Ghost extends JPanel {
 
     //Ilosc blokow na szerokosc
     protected int N_BLOCKS_WIDTH;
+    //Ilosc blokow na szerokosc
+    protected int N_BLOCKS_HEIGHT;
 
     //Zmienna mowiaca czy jestesmy w grze
 
@@ -35,9 +37,10 @@ public class Ghost extends JPanel {
 
     }
 
-    public Ghost(int BLOCK_SIZE, int N_BLOCKS_WIDTH, short[] screenData, Pacman pacman){
+    public Ghost(int BLOCK_SIZE, int N_BLOCKS_WIDTH, int N_BLOCK_HEIGHT, short[] screenData, Pacman pacman){
         this.BLOCK_SIZE = BLOCK_SIZE;
         this.N_BLOCKS_WIDTH = N_BLOCKS_WIDTH;
+        this.N_BLOCKS_HEIGHT = N_BLOCKS_HEIGHT;
         this.screenData = screenData;
         this.pacman = pacman;
         this.gameVariable = pacman.getGameVariable();
