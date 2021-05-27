@@ -22,6 +22,9 @@ public class Blinky extends Ghost{
 
         int pos;
         int count;
+        double distance;
+        double minDistance;
+        int indexMinDistance;
 
         if (ghost_x % BLOCK_SIZE == 0 && ghost_y % BLOCK_SIZE == 0) {
             pos = ghost_x / BLOCK_SIZE + N_BLOCKS_WIDTH * (int) (ghost_y / BLOCK_SIZE);
@@ -53,7 +56,6 @@ public class Blinky extends Ghost{
             }
 
             if (count == 0) {
-
                 if ((screenData[pos] & 15) == 15) {
                     ghost_dx = 0;
                     ghost_dy = 0;
@@ -61,17 +63,19 @@ public class Blinky extends Ghost{
                     ghost_dx = -ghost_dx;
                     ghost_dy = -ghost_dy;
                 }
-
             } else {
-
-                count = (int) (Math.random() * count);
-
-                if (count > 3) {
-                    count = 3;
+                distance = Math.sqrt(Math.pow(pacman.pacman_x - ghost_x, 2) + Math.pow(pacman.pacman_x - ghost_x, 2));
+                minDistance = distance;
+                indexMinDistance = 0;
+                for(int i = 0; i < count; i++){
+                    distance = Math.sqrt(Math.pow(pacman.pacman_x - ghost_x + dx[i], 2) + Math.pow(pacman.pacman_x - ghost_x + dy[i], 2));
+                    if(minDistance > distance){
+                        minDistance = distance;
+                        indexMinDistance = i;
+                    }
                 }
-
-                ghost_dx = dx[count];
-                ghost_dy = dy[count];
+                ghost_dx = dx[indexMinDistance];
+                ghost_dy = dy[indexMinDistance];
             }
 
         }
