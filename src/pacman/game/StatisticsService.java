@@ -7,7 +7,7 @@ import java.util.List;
 public class StatisticsService {
     private static final int statsLimit = 10;
     public static String[] getStats(){
-        String[] tmpStats = FileService.getFileContent("ranking.txt");
+        String[] tmpStats = FileService.getFileContent("Statistics/ranking.txt");
         String[] returnStats = new String[statsLimit];
         for (int i = 0; i < statsLimit; i++) {
             returnStats[i] = tmpStats[i].replace(':',' ');

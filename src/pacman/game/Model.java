@@ -280,7 +280,7 @@ public class Model extends JPanel implements ActionListener {
         if (gameVariable.getLives() == 0) {
             gameVariable.setInGame(false);
             player.updateScore(gameVariable.getScore());
-            StatisticsService.updateStatistics(player, "ranking.txt");
+            StatisticsService.updateStatistics(player, "Statistics/ranking.txt");
         }
         continueLevel();
     }
