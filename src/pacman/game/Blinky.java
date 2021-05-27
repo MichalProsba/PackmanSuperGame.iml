@@ -64,12 +64,12 @@ public class Blinky extends Ghost{
                     ghost_dy = -ghost_dy;
                 }
             } else {
-                distance = Math.sqrt(Math.pow(pacman.pacman_x - ghost_x, 2) + Math.pow(pacman.pacman_x - ghost_x, 2));
+                distance = Math.sqrt(Math.pow(pacman.pacman_x - ghost_x, 2) + Math.pow(pacman.pacman_y - ghost_y, 2));
                 minDistance = distance;
                 indexMinDistance = 0;
                 for(int i = 0; i < count; i++){
-                    distance = Math.sqrt(Math.pow(pacman.pacman_x - ghost_x + dx[i], 2) + Math.pow(pacman.pacman_x - ghost_x + dy[i], 2));
-                    if(minDistance > distance){
+                    distance = Math.sqrt(Math.pow(pacman.pacman_x - ghost_x + dx[i], 2) + Math.pow(pacman.pacman_y - ghost_y + dy[i], 2));
+                    if(minDistance < distance){
                         minDistance = distance;
                         indexMinDistance = i;
                     }
