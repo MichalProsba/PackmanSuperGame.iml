@@ -7,11 +7,39 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-import javax.swing.Timer;
+import javax.swing.*;
 
 public class Model extends JPanel implements ActionListener {
+
+    private JFrame alertWindow;
+
+    // Alert Window
+    private static final int ALERT_WINDOW_X_SIZE = 500;
+    private static final int ALERT_WINDOW_Y_SIZE = 200;
+
+    // AlertWindow Ok button
+    private static final int OK_BUTTON_WIDTH = 100;
+    private static final int OK_BUTTON_HEIGHT = 50;
+    private static final int OK_BUTTON_X_POSITION = (ALERT_WINDOW_X_SIZE-OK_BUTTON_WIDTH)/2;
+    private static final int OK_BUTTON_Y_POSITION = ((ALERT_WINDOW_Y_SIZE-OK_BUTTON_HEIGHT)/2)+20;
+
+    // Alert Label
+    private static final int ALERT_LABEL_WIDTH = 120;
+    private static final int ALERT_LABEL_HEIGHT = 50;
+    private static final int ALERT_LABEL_X_POSITION = (ALERT_WINDOW_X_SIZE-ALERT_LABEL_WIDTH)/2;
+    private static final int ALERT_LABEL_Y_POSITION = 10;
+
+    // Colors
+    private static final Color backgroundColor = new Color(0,0,0);
+    private static final Color textColor = new Color(255,255,0);
+    private static final Color chosenButtonBackgroundColor = new Color(0,72,251);
+
+    // Titlebar Image
+    private static final Image pacmanImage = Toolkit.getDefaultToolkit().getImage("Images/Speed/Medium.PNG");
+
+    // Fonts
+    private static final Font menuFont = new Font("Arial", Font.BOLD, 18);
+
     //Zycia
     private Player player;
 
@@ -318,7 +346,41 @@ public class Model extends JPanel implements ActionListener {
             gameVariable.setInGame(false);
             player.updateScore(gameVariable.getScore());
             StatisticsService.updateStatistics(player, "Statistics/ranking.txt");
-            StartWindow.RunGame();
+
+            this.setEnabled(false);
+            alertWindow = new JFrame("Alert");
+            Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+            int x = (int) ((dimension.getWidth() - ALERT_WINDOW_X_SIZE) / 2);
+            int y = (int) ((dimension.getHeight() - ALERT_WINDOW_Y_SIZE) / 2);
+            alertWindow.setBounds(x, y,ALERT_WINDOW_X_SIZE, ALERT_WINDOW_Y_SIZE);
+            alertWindow.getContentPane().setBackground(backgroundColor);
+            alertWindow.setUndecorated (true);
+            alertWindow.getContentPane().setLayout(null);
+            alertWindow.setIconImage(pacmanImage);
+            alertWindow.getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, chosenButtonBackgroundColor));
+
+            // Create alert label
+            Label statsTitleLabel = new Label("GAME OVER");
+            statsTitleLabel.setBounds(ALERT_LABEL_X_POSITION,ALERT_LABEL_Y_POSITION,ALERT_LABEL_WIDTH,ALERT_LABEL_HEIGHT);
+            statsTitleLabel.setFont(menuFont);
+            statsTitleLabel.setForeground(textColor);
+            alertWindow.getContentPane().add(statsTitleLabel);
+
+            // Create ok button
+            JButton okButton = new JButton("Ok");
+            okButton.setBounds(OK_BUTTON_X_POSITION,OK_BUTTON_Y_POSITION,OK_BUTTON_WIDTH,OK_BUTTON_HEIGHT);
+            okButton.setBackground(backgroundColor);
+            okButton.setForeground(textColor);
+            okButton.setBorderPainted(true);
+            okButton.setFont(menuFont);
+            okButton.addActionListener(this);
+            alertWindow.getContentPane().add(okButton);
+
+            alertWindow.setVisible(true);
+
+
+            StartWindow.disablePacWindow(false);
+            alertWindow.toFront();
             timer.stop();
         }else{
             continueLevel();
@@ -542,6 +604,15 @@ public class Model extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         repaint();
+        if (e.getActionCommand() != null){
+            if (e.getActionCommand().equals("Ok")) {
+                alertWindow.dispose();
+                this.setEnabled(true);
+                StartWindow.RunGame();
+                StartWindow.disablePacWindow(true);
+                StartWindow.windowToFront();
+            }
+        }
     }
 
 }

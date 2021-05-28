@@ -7,9 +7,6 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.geom.RoundRectangle2D;
-import java.util.List;
 
 public class StartWindow extends JFrame implements ActionListener {
 
@@ -160,6 +157,9 @@ public class StartWindow extends JFrame implements ActionListener {
     // Alert Window
     JFrame alertWindow;
 
+    // Start Window
+    private static JFrame startWindow;
+
    public static PacmanGame pac = new PacmanGame();
 
     private StartWindow(){
@@ -206,7 +206,7 @@ public class StartWindow extends JFrame implements ActionListener {
 
     private static void CreateGUI(){
         // Create Window
-        JFrame startWindow = new StartWindow();
+        startWindow = new StartWindow();
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (int) ((dimension.getWidth() - WINDOW_SIZE) / 2);
         int y = (int) ((dimension.getHeight() - WINDOW_SIZE) / 2);
@@ -550,6 +550,14 @@ public class StartWindow extends JFrame implements ActionListener {
 
             alertWindow.setVisible(true);
         }
+    }
+
+    public static void disablePacWindow(boolean enable){
+        pac.setEnabled(enable);
+    }
+
+    public static void windowToFront(){
+        startWindow.toFront();
     }
 
     @Override
