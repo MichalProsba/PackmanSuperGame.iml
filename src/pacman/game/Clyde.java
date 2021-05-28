@@ -8,15 +8,22 @@ public class Clyde extends Ghost implements Runnable{
     //Zdjecie Clyda
     public Image clydeImage;
 
-    public Clyde(){
-
-    }
-
+    /**
+     * Clyde constructor
+     * @param BLOCK_SIZE - block size
+     * @param N_BLOCKS_WIDTH - numbers of blocks in width
+     * @param N_BLOCKS_HEIGHT - number of blocks in height
+     * @param screenData - includes map model
+     * @param pacman - include pacman object
+     */
     public Clyde(int BLOCK_SIZE, int N_BLOCKS_WIDTH, int N_BLOCKS_HEIGHT, short[] screenData, Pacman pacman){
         super(BLOCK_SIZE, N_BLOCKS_WIDTH, N_BLOCKS_HEIGHT, screenData ,pacman);
         clydeImage = new ImageIcon("Images/Ghosts/clyde.gif").getImage();
     }
 
+    /**
+     * Method that calculate clyde move
+     */
     //Ruchy duchów
     public void moveGhosts() {
 
@@ -79,16 +86,26 @@ public class Clyde extends Ghost implements Runnable{
             ghost_y = ghost_y + (ghost_dy * ghostSpeed);
     }
 
+
+    /**
+     * Method that draw clyde
+     */
     //Rysowanie Ducha
     public void drawGhost(Graphics2D g2d, int x, int y) {
         g2d.drawImage(clydeImage, x, y, this);
     }
 
+    /**
+     *Override method run
+     */
     @Override
     public void run() {
         moveGhosts();
     }
 
+    /**
+     * Method that draw clyde and check colision
+     */
     public void drawClyde(Graphics2D g2d){
         drawGhost(g2d, ghost_x + 1, ghost_y + 1);
         checkColision();

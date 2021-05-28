@@ -8,15 +8,22 @@ public class Pinky extends Ghost implements Runnable{
     public Image pinkyImage;
     private final int lookForward = 4;
 
-    public Pinky(){
-
-    }
-
+    /**
+     * Pinky constructor
+     * @param BLOCK_SIZE - block size
+     * @param N_BLOCKS_WIDTH - numbers of blocks in width
+     * @param N_BLOCKS_HEIGHT - number of blocks in height
+     * @param screenData - includes map model
+     * @param pacman - include pacman object
+     */
     public Pinky(int BLOCK_SIZE, int N_BLOCKS_WIDTH, int N_BLOCKS_HEIGHT, short[] screenData, Pacman pacman){
         super(BLOCK_SIZE, N_BLOCKS_WIDTH, N_BLOCKS_HEIGHT, screenData ,pacman);
         pinkyImage = new ImageIcon("Images/Ghosts/pinky.gif").getImage();
     }
 
+    /**
+     * Method that calculate pinky move
+     */
     //Ruchy duchów
     public void moveGhosts() {
 
@@ -103,16 +110,25 @@ public class Pinky extends Ghost implements Runnable{
         ghost_y = ghost_y + (ghost_dy * ghostSpeed);
     }
 
+    /**
+     * Method that draw pinky
+     */
     //Rysowanie Ducha
     public void drawGhost(Graphics2D g2d, int x, int y) {
         g2d.drawImage(pinkyImage, x, y, this);
     }
 
+    /**
+     *Override method run
+     */
     @Override
     public void run() {
         moveGhosts();
     }
 
+    /**
+     * Method that draw pinky and check colision
+     */
     public void drawPinky(Graphics2D g2d){
         drawGhost(g2d,ghost_x+1, ghost_y+1);
         checkColision();

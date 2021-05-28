@@ -39,7 +39,15 @@ public class Ghost extends JPanel {
 
     }
 
-    public Ghost(int BLOCK_SIZE, int N_BLOCKS_WIDTH, int N_BLOCK_HEIGHT, short[] screenData, Pacman pacman){
+    /**
+     * Ghost constructor
+     * @param BLOCK_SIZE - block size
+     * @param N_BLOCKS_WIDTH - numbers of blocks in width
+     * @param N_BLOCKS_HEIGHT - number of blocks in height
+     * @param screenData - includes map model
+     * @param pacman - include pacman object
+     */
+    public Ghost(int BLOCK_SIZE, int N_BLOCKS_WIDTH, int N_BLOCKS_HEIGHT, short[] screenData, Pacman pacman){
         this.BLOCK_SIZE = BLOCK_SIZE;
         this.N_BLOCKS_WIDTH = N_BLOCKS_WIDTH;
         this.N_BLOCKS_HEIGHT = N_BLOCKS_HEIGHT;
@@ -48,6 +56,10 @@ public class Ghost extends JPanel {
         this.gameVariable = pacman.getGameVariable();
     }
 
+    /**
+     * Method that set ghost random speed from 1 to currentSpeed
+     * @param currentSpeed - current speed ghost depending on level
+     */
     public void setGhostRandomSpeed(int currentSpeed){
         //Randomowe predkosci duchow
         int random = (int) (Math.random() * (currentSpeed + 1));
@@ -57,6 +69,9 @@ public class Ghost extends JPanel {
         ghostSpeed = validSpeeds[random];
     }
 
+    /**
+     * Method that check colision ghost with pacman
+     */
     public void checkColision() {
         if (pacman.pacman_x > (ghost_x - 12) && pacman.pacman_x < (ghost_x + 12)
                 && pacman.pacman_y > (ghost_y - 12) && pacman.pacman_y < (ghost_y + 12)

@@ -9,15 +9,22 @@ public class Inky extends Ghost implements Runnable{
     public Image inkyImage;
     private final int lookForward = 4;
 
-    public Inky(){
-
-    }
-
+    /**
+     * Clyde Inky
+     * @param BLOCK_SIZE - block size
+     * @param N_BLOCKS_WIDTH - numbers of blocks in width
+     * @param N_BLOCKS_HEIGHT - number of blocks in height
+     * @param screenData - includes map model
+     * @param pacman - include pacman object
+     */
     public Inky(int BLOCK_SIZE, int N_BLOCKS_WIDTH, int N_BLOCKS_HEIGHT, short[] screenData, Pacman pacman){
         super(BLOCK_SIZE, N_BLOCKS_WIDTH, N_BLOCKS_HEIGHT, screenData ,pacman);
         inkyImage = new ImageIcon("Images/Ghosts/inky.gif").getImage();
     }
 
+    /**
+     * Method that calculate inky move
+     */
     //Ruchy duchów
     public void moveGhosts() {
 
@@ -127,16 +134,25 @@ public class Inky extends Ghost implements Runnable{
         ghost_y = ghost_y + (ghost_dy * ghostSpeed);
     }
 
+    /**
+     * Method that draw inky
+     */
     //Rysowanie Ducha
     public void drawGhost(Graphics2D g2d, int x, int y) {
         g2d.drawImage(inkyImage, x, y, this);
     }
 
+    /**
+     *Override method run
+     */
     @Override
     public void run() {
         moveGhosts();
     }
 
+    /**
+     * Method that draw inky and check colision
+     */
     public void drawInky(Graphics2D g2d){
         drawGhost(g2d,ghost_x+1, ghost_y+1);
         checkColision();

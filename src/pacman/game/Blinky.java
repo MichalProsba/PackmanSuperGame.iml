@@ -8,15 +8,22 @@ public class Blinky extends Ghost implements Runnable{
     //Zdjecie Clyda
     public Image blinkyImage;
 
-    public Blinky(){
-
-    }
-
+    /**
+     * Blinky constructor
+     * @param BLOCK_SIZE - block size
+     * @param N_BLOCKS_WIDTH - numbers of blocks in width
+     * @param N_BLOCKS_HEIGHT - number of blocks in height
+     * @param screenData - includes map model
+     * @param pacman - include pacman object
+     */
     public Blinky(int BLOCK_SIZE, int N_BLOCKS_WIDTH, int N_BLOCKS_HEIGHT, short[] screenData, Pacman pacman){
         super(BLOCK_SIZE, N_BLOCKS_WIDTH, N_BLOCKS_HEIGHT, screenData ,pacman);
         blinkyImage = new ImageIcon("Images/Ghosts/blinky.gif").getImage();
     }
 
+    /**
+     * Method that calculate blinky move
+     */
     //Ruchy duchów
     public void moveGhosts() {
 
@@ -83,16 +90,25 @@ public class Blinky extends Ghost implements Runnable{
         ghost_y = ghost_y + (ghost_dy * ghostSpeed);
     }
 
+    /**
+     * Method that draw blinky
+     */
     //Rysowanie Ducha
     public void drawGhost(Graphics2D g2d, int x, int y) {
         g2d.drawImage(blinkyImage, x, y, this);
     }
 
+    /**
+     *Override method run
+     */
     @Override
     public void run() {
         moveGhosts();
     }
 
+    /**
+     * Method that draw blinky and check colision
+     */
     public void drawBlinky(Graphics2D g2d){
         drawGhost(g2d,ghost_x+1, ghost_y+1);
         checkColision();

@@ -224,7 +224,7 @@ public class Model extends JPanel implements ActionListener {
     }
 
     /**
-     * Function that initialize game
+     * Method that initialize game
      */
     //Inicjalizacja gry
     private void initGame() {
@@ -239,6 +239,10 @@ public class Model extends JPanel implements ActionListener {
         setGhostSpeed();
     }
 
+    /**
+     * Method that simulate the game, calculate position of ghost and pacman and check maze
+     * @param g2d - graphics holder
+     */
     //Funkcja
     private void playGame(Graphics2D g2d) {
         if (gameVariable.isDying()) {
@@ -251,6 +255,10 @@ public class Model extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Method that calculate ghost position and draw a ghost
+     * @param g2d - graphics holder
+     */
     private void calculateGhostsPosition(Graphics2D g2d) {
         blinkyThread = new Thread(blinky);
         blinkyThread.start();
@@ -279,11 +287,17 @@ public class Model extends JPanel implements ActionListener {
         pinky.drawPinky(g2d);
     }
 
+    /**
+     * Method that load images
+     */
     //Zaladowanie zdjec
     private void loadImages() {
         heart = new ImageIcon("Images/Lives/heart.png").getImage();
     }
 
+    /**
+     * Method that inicial variavles
+     */
     //Zainicjalizowanie zmiennych
     private void initVariables() {
         //Tu byl screenData
@@ -305,6 +319,10 @@ public class Model extends JPanel implements ActionListener {
         timer.start();
     }
 
+    /**
+     * Method that draw intro screen
+     * @param g2d - graphics holder
+     */
     //Wyswietlenie informacji o starcie gry
     private void showIntroScreen(Graphics2D g2d) {
         String start = "Press SPACE to start";
@@ -312,6 +330,10 @@ public class Model extends JPanel implements ActionListener {
         g2d.drawString(start, (SCREEN_SIZE_WIDTH)/ 2.73F, (SCREEN_SIZE_HEIGHT)/2);
     }
 
+    /**
+     * Method that draw score
+     * @param g - graphics holder
+     */
     //Wyswietlenie wyniku
     private void drawScore(Graphics2D g) {
         g.setFont(smallFont);
@@ -324,6 +346,9 @@ public class Model extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Method that checks if there are any point to eat by packman on the maze
+     */
     //Sprawdzenie czy wszystkie zetony zostaly zjedzone
     private void checkMaze() {
 
@@ -357,6 +382,9 @@ public class Model extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Method that substract pacman lives and show window when pacman doesn't have any lives
+     */
     //Smierc pacmana
     private void death() {
         gameVariable.setLives((gameVariable.getLives() - 1));
@@ -396,7 +424,6 @@ public class Model extends JPanel implements ActionListener {
 
             alertWindow.setVisible(true);
 
-
             StartWindow.disablePacWindow(false);
             alertWindow.toFront();
             timer.stop();
@@ -405,6 +432,10 @@ public class Model extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Method that draw maze
+     * @param g2d - graphics holder
+     */
     //Rysowanie planszy
     private void drawMaze(Graphics2D g2d) {
 
@@ -469,6 +500,9 @@ public class Model extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Method that loading a map
+     */
     //Przepisujemy mape do mapy, ktora bedzie wyswietlana
     private void initLevel() {
         switch(gameConfiguration.getLevel()){
@@ -491,10 +525,12 @@ public class Model extends JPanel implements ActionListener {
                 System.out.println("Bład: nieprawidłowy level");
                 break;
         }
-
         continueLevel();
     }
 
+    /**
+     * Method that set start position ghosts and pacman
+     */
     //Funkcja ustawiajaca duchy i pacmana w pozycji poczatkowej
     private void continueLevel() {
 
@@ -536,6 +572,10 @@ public class Model extends JPanel implements ActionListener {
         gameVariable.setDying(false);
     }
 
+    /**
+     * Method that draw a components
+     * @param g - graphics holder
+     */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
@@ -556,6 +596,9 @@ public class Model extends JPanel implements ActionListener {
         g2d.dispose();
     }
 
+    /**
+     * Methot that have interaction with player and allow control a pacman
+     */
     //controls
     class TAdapter extends KeyAdapter {
 
@@ -595,6 +638,9 @@ public class Model extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Methot that set ghost speed as random from 1 to currentSpeed
+     */
     public void setGhostSpeed(){
         blinky.setGhostRandomSpeed(currentSpeed);
         pinky.setGhostRandomSpeed(currentSpeed);
@@ -602,6 +648,10 @@ public class Model extends JPanel implements ActionListener {
         clyde.setGhostRandomSpeed(currentSpeed);
     }
 
+    /**
+     * Override the actionPerformed method
+     * @param e - given action event
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         repaint();

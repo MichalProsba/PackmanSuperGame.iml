@@ -34,10 +34,22 @@ public class Pacman extends JPanel{
     //Plansza
     private short[] screenData;
 
+    /**
+     * Pacman constructor
+     */
     public Pacman(){
 
     }
 
+    /**
+     * Pacman constructor
+     * @param pacmanRole - pacman role
+     * @param PACMAN_SPEED - pacman speed
+     * @param BLOCK_SIZE - block size
+     * @param N_BLOCKS_WIDTH - numbers of blocks in width
+     * @param screenData - includes map model
+     * @param gameVariable - structure that contains a game variables
+     */
     public Pacman(int pacmanRole, int PACMAN_SPEED, int BLOCK_SIZE, int N_BLOCKS_WIDTH, short[] screenData, GameVariable gameVariable) {
         switch (pacmanRole) {
             case 1:
@@ -69,6 +81,10 @@ public class Pacman extends JPanel{
         this.gameVariable = gameVariable;
     }
 
+    /**
+     * Method that draw pacman
+     * @param g2d - graphics holder
+     */
     //Narysuj pacmana
     public void drawPacman(Graphics2D g2d) {
         if (req_dx == -1) {
@@ -82,6 +98,9 @@ public class Pacman extends JPanel{
         }
     }
 
+    /**
+     * Methot tha move pacman
+     */
     //Ruchy Pacmana
     public void movePacman() {
         int pos;
@@ -125,10 +144,18 @@ public class Pacman extends JPanel{
         pacman_y = pacman_y + PACMAN_SPEED * pacman_dy;
     }
 
+    /**
+     * Getter gameVariable
+     * @return - gameVariable
+     */
     public GameVariable getGameVariable() {
         return gameVariable;
     }
 
+    /**
+     * Setter gameVariable
+     * @param gameVariable - game variable
+     */
     public void setGameVariable(GameVariable gameVariable) {
         this.gameVariable = gameVariable;
     }
