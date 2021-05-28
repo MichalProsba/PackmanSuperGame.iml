@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
-public class Inky extends Ghost{
+public class Inky extends Ghost implements Runnable{
     //Zdjecie Clyda
     public Image inkyImage;
     private final int lookForward = 4;
@@ -19,7 +19,7 @@ public class Inky extends Ghost{
     }
 
     //Ruchy duchów
-    public void moveGhosts(Graphics2D g2d) {
+    public void moveGhosts() {
 
         int pos;
         int count;
@@ -125,17 +125,20 @@ public class Inky extends Ghost{
 
         ghost_x = ghost_x + (ghost_dx * ghostSpeed);
         ghost_y = ghost_y + (ghost_dy * ghostSpeed);
-        drawGhost(g2d, ghost_x + 1, ghost_y + 1);
-
-        if (pacman.pacman_x > (ghost_x - 12) && pacman.pacman_x < (ghost_x + 12)
-                && pacman.pacman_y > (ghost_y - 12) && pacman.pacman_y < (ghost_y + 12)
-                && gameVariable.isInGame()) {
-            gameVariable.setDying(true);
-        }
     }
 
     //Rysowanie Ducha
     public void drawGhost(Graphics2D g2d, int x, int y) {
         g2d.drawImage(inkyImage, x, y, this);
+    }
+
+    @Override
+    public void run() {
+        moveGhosts();
+    }
+
+    public void drawInky(Graphics2D g2d){
+        drawGhost(g2d,ghost_x+1, ghost_y+1);
+        checkColision();
     }
 }

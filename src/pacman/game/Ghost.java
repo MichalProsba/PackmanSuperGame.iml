@@ -1,7 +1,5 @@
 package pacman.game;
 
-import java.awt.*;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class Ghost extends JPanel {
@@ -46,6 +44,11 @@ public class Ghost extends JPanel {
         this.gameVariable = pacman.getGameVariable();
     }
 
-
-
+    public void checkColision() {
+        if (pacman.pacman_x > (ghost_x - 12) && pacman.pacman_x < (ghost_x + 12)
+                && pacman.pacman_y > (ghost_y - 12) && pacman.pacman_y < (ghost_y + 12)
+                && gameVariable.isInGame()) {
+            gameVariable.setDying(true);
+        }
+    }
 }

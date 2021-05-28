@@ -3,7 +3,7 @@ package pacman.game;
 import java.awt.*;
 import javax.swing.ImageIcon;
 
-public class Blinky extends Ghost{
+public class Blinky extends Ghost implements Runnable{
 
     //Zdjecie Clyda
     public Image blinkyImage;
@@ -18,7 +18,7 @@ public class Blinky extends Ghost{
     }
 
     //Ruchy duchów
-    public void moveGhosts(Graphics2D g2d) {
+    public void moveGhosts() {
 
         int pos;
         int count;
@@ -81,13 +81,6 @@ public class Blinky extends Ghost{
 
         ghost_x = ghost_x + (ghost_dx * ghostSpeed);
         ghost_y = ghost_y + (ghost_dy * ghostSpeed);
-        drawGhost(g2d, ghost_x + 1, ghost_y + 1);
-
-        if (pacman.pacman_x > (ghost_x - 12) && pacman.pacman_x < (ghost_x + 12)
-                && pacman.pacman_y > (ghost_y - 12) && pacman.pacman_y < (ghost_y + 12)
-                && gameVariable.isInGame()) {
-            gameVariable.setDying(true);
-        }
     }
 
     //Rysowanie Ducha
@@ -95,4 +88,13 @@ public class Blinky extends Ghost{
         g2d.drawImage(blinkyImage, x, y, this);
     }
 
+    @Override
+    public void run() {
+        moveGhosts();
+    }
+
+    public void drawBlinky(Graphics2D g2d){
+        drawGhost(g2d,ghost_x+1, ghost_y+1);
+        checkColision();
+    }
 }

@@ -5,12 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Model extends JPanel implements ActionListener {
-
     //Zycia
     private Player player;
 
@@ -74,6 +75,13 @@ public class Model extends JPanel implements ActionListener {
     private Blinky blinky;
     private Pinky pinky;
     private Inky inky;
+
+    //Tworzenie watkow
+
+    Thread blinkyThread;
+    Thread pinkyThread;
+    Thread clydeThread;
+    Thread inkyThread;
 
     //Plansza 15x15 - 225 elementow
     //0 - przeszkoda
@@ -189,11 +197,35 @@ public class Model extends JPanel implements ActionListener {
         } else {
             pacman.movePacman();
             pacman.drawPacman(g2d);
-            clyde.moveGhosts(g2d);
-            blinky.moveGhosts(g2d);
-            pinky.moveGhosts(g2d);
-            inky.moveGhosts(g2d);
+            calculateGhostsPosition(g2d);
             checkMaze();
+        }
+    }
+
+    private void calculateGhostsPosition(Graphics2D g2d) {
+        blinkyThread = new Thread(blinky);
+        blinkyThread.start();
+        blinky.drawBlinky(g2d);
+
+        clydeThread = new Thread(clyde);
+        clydeThread.start();
+        clyde.drawClyde(g2d);
+
+        inkyThread = new Thread(inky);
+        inkyThread.start();
+        inky.drawInky(g2d);
+
+        pinkyThread = new Thread(pinky);
+        pinkyThread.start();
+        pinky.drawPinky(g2d);
+
+        try {
+            blinkyThread.join();
+            clydeThread.join();
+            inkyThread.join();
+            pinkyThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 

@@ -3,7 +3,7 @@ package pacman.game;
 import java.awt.*;
 import javax.swing.ImageIcon;
 
-public class Clyde extends Ghost{
+public class Clyde extends Ghost implements Runnable{
 
     //Zdjecie Clyda
     public Image clydeImage;
@@ -18,7 +18,7 @@ public class Clyde extends Ghost{
     }
 
     //Ruchy duchów
-    public void moveGhosts(Graphics2D g2d) {
+    public void moveGhosts() {
 
         int pos;
         int count;
@@ -77,17 +77,20 @@ public class Clyde extends Ghost{
 
             ghost_x = ghost_x + (ghost_dx * ghostSpeed);
             ghost_y = ghost_y + (ghost_dy * ghostSpeed);
-            drawGhost(g2d, ghost_x + 1, ghost_y + 1);
-
-            if (pacman.pacman_x > (ghost_x - 12) && pacman.pacman_x < (ghost_x + 12)
-                    && pacman.pacman_y > (ghost_y - 12) && pacman.pacman_y < (ghost_y + 12)
-                    && gameVariable.isInGame()) {
-                gameVariable.setDying(true);
-            }
     }
 
     //Rysowanie Ducha
     public void drawGhost(Graphics2D g2d, int x, int y) {
         g2d.drawImage(clydeImage, x, y, this);
+    }
+
+    @Override
+    public void run() {
+        moveGhosts();
+    }
+
+    public void drawClyde(Graphics2D g2d){
+        drawGhost(g2d, ghost_x + 1, ghost_y + 1);
+        checkColision();
     }
 }
