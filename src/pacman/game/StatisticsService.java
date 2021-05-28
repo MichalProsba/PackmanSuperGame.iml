@@ -4,8 +4,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * StatisticsService - handles the statistics of the game
+ */
 public class StatisticsService {
     private static final int statsLimit = 10;
+
+    /**
+     * Gets the current game stats
+     * @return current Stats in a ready to display version
+     */
     public static String[] getStats(){
         String[] tmpStats = FileService.getFileContent("Statistics/ranking.txt");
         String[] returnStats = new String[statsLimit];
@@ -14,8 +22,13 @@ public class StatisticsService {
         }
         return returnStats;
     }
-    public static void updateStatistics(Player currentPlayer, String path){
-        String[] stats = FileService.getFileContent(path);
+
+    /**
+     * Updates game statistics
+     * @param currentPlayer represents the current player
+     */
+    public static void updateStatistics(Player currentPlayer){
+        String[] stats = FileService.getFileContent("Statistics/ranking.txt");
         int howManyPlayers = stats.length;
         List<Player> players = new ArrayList<>();
         boolean isAlreadyThere = false;
@@ -43,6 +56,6 @@ public class StatisticsService {
         for(int i = 0; i < players.size(); i++){
             players.get(i).updateRankingPosition(i+1);
         }
-        FileService.saveToFile(players, path);
+        FileService.saveToFile(players, "Statistics/ranking.txt");
     }
 }

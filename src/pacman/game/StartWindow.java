@@ -401,10 +401,10 @@ public class StartWindow extends JFrame implements ActionListener {
 
         JTextArea textArea = new JTextArea(
                 "Controls: \n"+
-                "←  -  go left \n" +
-                "→  -  go right \n" +
-                "↑  -  go up \n" +
-                "↓  -  go down \n" +
+                "Left arrow  -  go left \n" +
+                "Right arrow  -  go right \n" +
+                "Up arrow  -  go up \n" +
+                "Down arrow  -  go down \n" +
                 "\n" +
                 "Logic: \n" +
                 "Your goal is to collect all white dots," +
