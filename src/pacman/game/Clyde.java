@@ -3,6 +3,9 @@ package pacman.game;
 import java.awt.*;
 import javax.swing.ImageIcon;
 
+/**
+ * Represent ghost clyde
+ */
 public class Clyde extends Ghost implements Runnable{
 
     //Zdjecie Clyda

@@ -3,6 +3,9 @@ package pacman.game;
 import java.awt.*;
 import javax.swing.ImageIcon;
 
+/**
+ * Represent ghost Blinky
+ */
 public class Blinky extends Ghost implements Runnable{
 
     //Zdjecie Clyda

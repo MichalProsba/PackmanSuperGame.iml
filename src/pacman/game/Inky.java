@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
+/**
+ * Represent ghost Inky
+ */
 public class Inky extends Ghost implements Runnable{
     //Zdjecie Clyda
     public Image inkyImage;

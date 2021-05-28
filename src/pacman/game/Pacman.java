@@ -4,6 +4,9 @@ import java.awt.*;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+/**
+ * Represent pacman
+ */
 public class Pacman extends JPanel{
 
     //Polozenie, zmiana polozenia predkosc pacmana

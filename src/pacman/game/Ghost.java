@@ -3,6 +3,9 @@ package pacman.game;
 import javax.swing.JPanel;
 import java.util.Random;
 
+/**
+ * Represent Ghost
+ */
 public class Ghost extends JPanel {
     //Polozenie duchow
     public int ghost_x;
