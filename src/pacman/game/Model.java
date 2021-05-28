@@ -31,6 +31,8 @@ public class Model extends JPanel implements ActionListener {
     private final int USER_SCREEN_SIZE_HEIGHT = 1080;
     //Wysokosc i szerokosc obrazka
     private final int IMAGE_SIZE = 60;
+    //Maksymalna ilosc map
+    private final int MAX_MAP = 3;
 
     //Wysokosc i szerokosc pojedynczego bloku
     private final int BLOCK_SIZE =  IMAGE_SIZE;
@@ -53,8 +55,6 @@ public class Model extends JPanel implements ActionListener {
     private final int PACMAN_SPEED = 6;
 
     //Ilosc duchow
-    //////////////////////////////
-    ///////////////////////////////
     private int N_GHOSTS = 6;
 
     //Animacje serca ducha,pacmana
@@ -179,9 +179,6 @@ public class Model extends JPanel implements ActionListener {
         gameVariable.setLives(3);
         //Wynik
         gameVariable.setScore(0);
-        //lives[0] = 3;
-        //Wynik
-        //score[0] = 0;
         //Inicjalizacja mapy
         initLevel();
         //Aktualna ilosc duchow
@@ -282,7 +279,7 @@ public class Model extends JPanel implements ActionListener {
 
         while (i < N_BLOCKS_WIDTH * N_BLOCKS_HEIGHT && finished) {
 
-            if ((screenData[i]) != 0) {
+            if ((screenData[i] & 16) != 0) {
                 finished = false;
             }
 
@@ -291,7 +288,7 @@ public class Model extends JPanel implements ActionListener {
 
         if (finished) {
 
-            gameVariable.setScore((gameVariable.getScore() + 50));
+            gameVariable.setScore((gameVariable.getScore() + 100));
 
             /*
             if (N_GHOSTS < MAX_GHOSTS) {
@@ -301,6 +298,14 @@ public class Model extends JPanel implements ActionListener {
 
             if (currentSpeed < maxSpeed) {
                 currentSpeed++;
+                if(gameConfiguration.getLevel() >= MAX_MAP)
+                {
+                    gameConfiguration.setLevel(1);
+                }
+                else
+                {
+                    gameConfiguration.setLevel((gameConfiguration.getLevel() + 1));
+                }
             }
             initLevel();
         }
@@ -313,6 +318,9 @@ public class Model extends JPanel implements ActionListener {
             gameVariable.setInGame(false);
             player.updateScore(gameVariable.getScore());
             StatisticsService.updateStatistics(player, "Statistics/ranking.txt");
+            StartWindow.RunGame();
+
+
         }
         continueLevel();
     }

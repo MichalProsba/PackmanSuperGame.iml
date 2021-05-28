@@ -11,6 +11,7 @@ import java.awt.geom.RoundRectangle2D;
 import java.util.List;
 
 public class StartWindow extends JFrame implements ActionListener {
+
     // Window
     private static final int WINDOW_SIZE = 500;
 
@@ -158,6 +159,8 @@ public class StartWindow extends JFrame implements ActionListener {
     // Alert Window
     JFrame alertWindow;
 
+   private static PacmanGame pac = new PacmanGame();
+
     private StartWindow(){
         CreateContent();
     }
@@ -217,6 +220,7 @@ public class StartWindow extends JFrame implements ActionListener {
 
     public static void RunGame(){
         CreateGUI();
+        pac.dispose();
     }
 
     private void ShowStats(){
@@ -504,7 +508,8 @@ public class StartWindow extends JFrame implements ActionListener {
     private void startGame() {
         if(!nickname.getText().contains(":")){
             Player currentPlayer = new Player(nickname.getText());
-            PacmanGame pac = new PacmanGame(chosenMap, chosenSpeed, chosenCharacter, currentPlayer);
+            pac.dispose();
+            pac = new PacmanGame(chosenMap, chosenSpeed, chosenCharacter, currentPlayer);
             pac.setVisible(true);
             pac.setTitle("Pacman");
             pac.setSize(1880,1020);
