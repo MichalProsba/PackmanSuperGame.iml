@@ -7,6 +7,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.awt.geom.RoundRectangle2D;
 import java.util.List;
 
@@ -564,7 +565,8 @@ public class StartWindow extends JFrame implements ActionListener {
             createHelp();
         }
         else if (action.equals("Exit")) {
-            System.exit(0);
+            //System.exit(0);
+            this.dispose();
         }
         else if (action.equals("Return")) {
             CreateContent();
