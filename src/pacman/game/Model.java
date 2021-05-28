@@ -5,9 +5,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import javax.swing.*;
+
+/**
+ * Class containing the board model
+ */
 
 public class Model extends JPanel implements ActionListener {
 
@@ -196,9 +198,9 @@ public class Model extends JPanel implements ActionListener {
     private int GameSpeed3 = 10;
 
     /**
-     *
-     * @param gameConfiguration
-     * @param player
+     * Model constructor
+     * @param gameConfiguration - parameter containing game parameters
+     * @param player - parameter containing player data
      */
     public Model(GameConfiguration gameConfiguration, Player player){
         this.gameVariable = new GameVariable();
@@ -221,6 +223,9 @@ public class Model extends JPanel implements ActionListener {
         initGame();
     }
 
+    /**
+     * Function that initialize game
+     */
     //Inicjalizacja gry
     private void initGame() {
         //Ilosc zyc
@@ -249,19 +254,15 @@ public class Model extends JPanel implements ActionListener {
     private void calculateGhostsPosition(Graphics2D g2d) {
         blinkyThread = new Thread(blinky);
         blinkyThread.start();
-        blinky.drawBlinky(g2d);
 
         clydeThread = new Thread(clyde);
         clydeThread.start();
-        clyde.drawClyde(g2d);
 
         inkyThread = new Thread(inky);
         inkyThread.start();
-        inky.drawInky(g2d);
 
         pinkyThread = new Thread(pinky);
         pinkyThread.start();
-        pinky.drawPinky(g2d);
 
         try {
             blinkyThread.join();
@@ -271,6 +272,11 @@ public class Model extends JPanel implements ActionListener {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        blinky.drawBlinky(g2d);
+        clyde.drawClyde(g2d);
+        inky.drawInky(g2d);
+        pinky.drawPinky(g2d);
     }
 
     //Zaladowanie zdjec
