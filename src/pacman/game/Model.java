@@ -43,6 +43,7 @@ public class Model extends JPanel implements ActionListener {
     //Zycia
     private Player player;
 
+    //Struktura zmiennych gry
     private GameVariable gameVariable;
 
     //Konfiguracja gry, zawierajaca role, mape, szybkosc gry
@@ -52,6 +53,14 @@ public class Model extends JPanel implements ActionListener {
     private Dimension d;
     //Rozmiar i rodzaj czcionki
     private final Font smallFont = new Font("Arial", Font.BOLD, 48);
+
+    //Pozycja startowa duchow
+    private final int START_POSITION_GHOST_X = 4;
+    private final int START_POSITION_GHOST_Y = 4;
+
+    //Pozycja startowa pacmana
+    private final int START_POSITION_PACMAN_X = 7;
+    private final int START_POSITION_PACMAN_Y = 11;
 
     //Szerokosc ekranu gracza
     private final int USER_SCREEN_SIZE_WIDTH = 1920;
@@ -88,12 +97,18 @@ public class Model extends JPanel implements ActionListener {
     //Animacje serca ducha,pacmana
     private Image heart, ghost;
 
+    /*
     //Tablica dopuszczalnych predkosci
-    private final int validSpeeds[] = {1, 2, 3, 4, 6, 8};
+    private final int validSpeeds[] = {1, 2, 3, 4, 5, 6};
+
+     */
     //Maksymalna predkosc
     private final int maxSpeed = 6;
+
     //Aktualna predkosc
-    private int currentSpeed = 3;
+    private int currentSpeed = 4;
+
+
     //Timer
     private Timer timer;
 
@@ -180,6 +195,11 @@ public class Model extends JPanel implements ActionListener {
     private int GameSpeed2 = 15;
     private int GameSpeed3 = 10;
 
+    /**
+     *
+     * @param gameConfiguration
+     * @param player
+     */
     public Model(GameConfiguration gameConfiguration, Player player){
         this.gameVariable = new GameVariable();
         this.gameConfiguration = gameConfiguration;
@@ -209,10 +229,9 @@ public class Model extends JPanel implements ActionListener {
         gameVariable.setScore(0);
         //Inicjalizacja mapy
         initLevel();
-        //Aktualna ilosc duchow
-        N_GHOSTS = 6;
         //Aktualna predkosc
         currentSpeed = 3;
+        setGhostSpeed();
     }
 
     //Funkcja
@@ -315,25 +334,18 @@ public class Model extends JPanel implements ActionListener {
         }
 
         if (finished) {
-
             gameVariable.setScore((gameVariable.getScore() + 100));
-
-            /*
-            if (N_GHOSTS < MAX_GHOSTS) {
-                N_GHOSTS++;
+            if(gameConfiguration.getLevel() >= MAX_MAP)
+            {
+                gameConfiguration.setLevel(1);
             }
-             */
-
+            else
+            {
+                gameConfiguration.setLevel((gameConfiguration.getLevel() + 1));
+            }
             if (currentSpeed < maxSpeed) {
                 currentSpeed++;
-                if(gameConfiguration.getLevel() >= MAX_MAP)
-                {
-                    gameConfiguration.setLevel(1);
-                }
-                else
-                {
-                    gameConfiguration.setLevel((gameConfiguration.getLevel() + 1));
-                }
+                setGhostSpeed();
             }
             initLevel();
         }
@@ -483,56 +495,32 @@ public class Model extends JPanel implements ActionListener {
         int random;
 
         //Pozycja startowa duchow
-        clyde.ghost_y = 4 * BLOCK_SIZE; //start position
-        clyde.ghost_x = 4 * BLOCK_SIZE;
+        clyde.ghost_y = START_POSITION_GHOST_X * BLOCK_SIZE; //start position
+        clyde.ghost_x = START_POSITION_GHOST_Y * BLOCK_SIZE;
         clyde.ghost_dy = 0;
         clyde.ghost_dx = -1;
-        //Randomowe predkosci duchow
-        random = (int) (Math.random() * (currentSpeed + 1));
-        if (random > currentSpeed) {
-            random = currentSpeed;
-        }
-        clyde.ghostSpeed = validSpeeds[random];
 
         //Pozycja startowa duchow
-        blinky.ghost_y = 4 * BLOCK_SIZE; //start position
-        blinky.ghost_x = 4 * BLOCK_SIZE;
+        blinky.ghost_y = START_POSITION_GHOST_X * BLOCK_SIZE; //start position
+        blinky.ghost_x = START_POSITION_GHOST_Y * BLOCK_SIZE;
         blinky.ghost_dy = 0;
         blinky.ghost_dx = -1;
-        //Randomowe predkosci duchow
-        random = (int) (Math.random() * (currentSpeed + 1));
-        if (random > currentSpeed) {
-            random = currentSpeed;
-        }
-        blinky.ghostSpeed = validSpeeds[random];
 
         //Pozycja startowa duchow
-        pinky.ghost_y = 4 * BLOCK_SIZE; //start position
-        pinky.ghost_x = 4 * BLOCK_SIZE;
+        pinky.ghost_y = START_POSITION_GHOST_X * BLOCK_SIZE; //start position
+        pinky.ghost_x = START_POSITION_GHOST_Y * BLOCK_SIZE;
         pinky.ghost_dy = 0;
         pinky.ghost_dx = -1;
-        //Randomowe predkosci duchow
-        random = (int) (Math.random() * (currentSpeed + 1));
-        if (random > currentSpeed) {
-            random = currentSpeed;
-        }
-        pinky.ghostSpeed = validSpeeds[random];
 
         //Pozycja startowa duchow
-        inky.ghost_y = 4 * BLOCK_SIZE; //start position
-        inky.ghost_x = 4 * BLOCK_SIZE;
+        inky.ghost_y = START_POSITION_GHOST_X * BLOCK_SIZE; //start position
+        inky.ghost_x = START_POSITION_GHOST_Y * BLOCK_SIZE;
         inky.ghost_dy = 0;
         inky.ghost_dx = -1;
-        //Randomowe predkosci duchow
-        random = (int) (Math.random() * (currentSpeed + 1));
-        if (random > currentSpeed) {
-            random = currentSpeed;
-        }
-        inky.ghostSpeed = validSpeeds[random];
 
         //Pozycja startowa pacmana
-        pacman.pacman_x = 7 * BLOCK_SIZE;
-        pacman.pacman_y = 11 * BLOCK_SIZE;
+        pacman.pacman_x = START_POSITION_PACMAN_X * BLOCK_SIZE;
+        pacman.pacman_y = START_POSITION_PACMAN_Y * BLOCK_SIZE;
         //Reset kierunku ruchu
         pacman.pacman_dx = 0;
         pacman.pacman_dy = 0;
@@ -599,6 +587,13 @@ public class Model extends JPanel implements ActionListener {
                 }
             }
         }
+    }
+
+    public void setGhostSpeed(){
+        blinky.setGhostRandomSpeed(currentSpeed);
+        pinky.setGhostRandomSpeed(currentSpeed);
+        inky.setGhostRandomSpeed(currentSpeed);
+        clyde.setGhostRandomSpeed(currentSpeed);
     }
 
     @Override

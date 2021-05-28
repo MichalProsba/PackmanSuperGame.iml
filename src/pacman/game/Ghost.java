@@ -1,6 +1,7 @@
 package pacman.game;
 
 import javax.swing.JPanel;
+import java.util.Random;
 
 public class Ghost extends JPanel {
     //Polozenie duchow
@@ -22,6 +23,9 @@ public class Ghost extends JPanel {
     //Ilosc blokow na szerokosc
     protected int N_BLOCKS_HEIGHT;
 
+    //Tablica dopuszczalnych predkosci
+    private final int validSpeeds[] = {1, 2, 3, 4, 5, 6};
+
     //Zmienna mowiaca czy jestesmy w grze
 
     //Pacman
@@ -42,6 +46,15 @@ public class Ghost extends JPanel {
         this.screenData = screenData;
         this.pacman = pacman;
         this.gameVariable = pacman.getGameVariable();
+    }
+
+    public void setGhostRandomSpeed(int currentSpeed){
+        //Randomowe predkosci duchow
+        int random = (int) (Math.random() * (currentSpeed + 1));
+        if (random > currentSpeed) {
+            random = currentSpeed;
+        }
+        ghostSpeed = validSpeeds[random];
     }
 
     public void checkColision() {

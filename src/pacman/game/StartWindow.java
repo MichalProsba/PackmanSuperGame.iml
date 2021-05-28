@@ -221,7 +221,6 @@ public class StartWindow extends JFrame implements ActionListener {
 
     public static void RunGame(){
         CreateGUI();
-        pac.dispose();
     }
 
     private void ShowStats(){
@@ -509,7 +508,6 @@ public class StartWindow extends JFrame implements ActionListener {
     private void startGame() {
         if(!nickname.getText().contains(":")){
             Player currentPlayer = new Player(nickname.getText());
-            pac.dispose();
             pac = new PacmanGame(chosenMap, chosenSpeed, chosenCharacter, currentPlayer);
             pac.setVisible(true);
             pac.setTitle("Pacman");
@@ -574,7 +572,7 @@ public class StartWindow extends JFrame implements ActionListener {
         }
         else if (action.equals("Exit")) {
             //System.exit(0);
-            this.dispose();
+            System.exit(0);
         }
         else if (action.equals("Return")) {
             CreateContent();

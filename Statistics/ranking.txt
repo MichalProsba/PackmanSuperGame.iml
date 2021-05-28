@@ -1,4 +1,5 @@
 1.:Player:426
 2.:Bartosz:35
 3.:Patryk:32
-4.:Michal:20
+4.:Michał:26
+5.:Michal:20
