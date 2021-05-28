@@ -4,8 +4,17 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.*;
 
+/**
+ * FileService class represent all file operations
+ */
 public class FileService {
     private static final int statsLimit = 10;
+
+    /**
+     * Saves List with players to file
+     * @param players list of best 10 players
+     * @param path path to save the file
+     */
     public static void saveToFile(List<Player> players, String path){
         File f = new File(path);
         if(!f.exists()) {
@@ -30,6 +39,12 @@ public class FileService {
             }
         }
     }
+
+    /**
+     * Gets content of given file as String array
+     * @param path fromw here we should read
+     * @return string array containing given file content
+     */
     public static String[] getFileContent(String path){
         File f = new File(path);
         String[] content = new String[statsLimit];

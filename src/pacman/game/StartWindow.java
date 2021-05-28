@@ -8,6 +8,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Represents the start window AKA menu
+ */
 public class StartWindow extends JFrame implements ActionListener {
 
     // Window
@@ -162,10 +165,16 @@ public class StartWindow extends JFrame implements ActionListener {
 
    public static PacmanGame pac = new PacmanGame();
 
+    /**
+     * Private constructor
+     */
     private StartWindow(){
         CreateContent();
     }
 
+    /**
+     * Creates window content
+     */
     private void CreateContent(){
         this.getContentPane().removeAll();
 
@@ -204,6 +213,9 @@ public class StartWindow extends JFrame implements ActionListener {
         this.repaint();
     }
 
+    /**
+     * Creates user interface
+     */
     private static void CreateGUI(){
         // Create Window
         startWindow = new StartWindow();
@@ -219,10 +231,16 @@ public class StartWindow extends JFrame implements ActionListener {
         startWindow.setVisible(true);
     }
 
+    /**
+     * Starts the window
+     */
     public static void RunGame(){
         CreateGUI();
     }
 
+    /**
+     * Shows the statistics
+     */
     private void ShowStats(){
         this.getContentPane().removeAll();
 
@@ -260,6 +278,9 @@ public class StartWindow extends JFrame implements ActionListener {
         this.repaint();
     }
 
+    /**
+     * Loads game parameters panel
+     */
     private void ChooseGameParameters(){
         this.getContentPane().removeAll();
 
@@ -379,6 +400,9 @@ public class StartWindow extends JFrame implements ActionListener {
         this.repaint();
     }
 
+    /**
+     * Creates the help panel
+     */
     private void createHelp(){
         this.getContentPane().removeAll();
 
@@ -424,6 +448,10 @@ public class StartWindow extends JFrame implements ActionListener {
         this.repaint();
     }
 
+    /**
+     * Sets the chosen character
+     * @param who Name of chosen character
+     */
     private void setChosenCharacter(String who){
         try{
             if (who.equals("Classic")) {
@@ -451,6 +479,10 @@ public class StartWindow extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Sets chosen map
+     * @param which Name of chosen map
+     */
     private void setChosenMap(String which){
         try{
             if (which.equals("Map01")) {
@@ -478,6 +510,10 @@ public class StartWindow extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Sets chosen speed
+     * @param which Name of choosen speed
+     */
     private void setChosenSpeed(String which){
         try{
             if (which.equals("Slow")) {
@@ -505,6 +541,9 @@ public class StartWindow extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Starts the game
+     */
     private void startGame() {
         if(!nickname.getText().contains(":")){
             Player currentPlayer = new Player(nickname.getText());
@@ -550,14 +589,25 @@ public class StartWindow extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Disables or enables the game window (pac)
+     * @param enable True or False depending on desired enable status
+     */
     public static void disablePacWindow(boolean enable){
         pac.setEnabled(enable);
     }
 
+    /**
+     * Puts the start window to front
+     */
     public static void windowToFront(){
         startWindow.toFront();
     }
 
+    /**
+     * Overrides the actionPerformed method
+     * @param e Given action event
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();
