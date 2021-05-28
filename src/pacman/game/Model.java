@@ -319,10 +319,8 @@ public class Model extends JPanel implements ActionListener {
             player.updateScore(gameVariable.getScore());
             StatisticsService.updateStatistics(player, "Statistics/ranking.txt");
             StartWindow.RunGame();
-
-
         }
-        continueLevel();
+            continueLevel();
     }
 
     //Rysowanie planszy

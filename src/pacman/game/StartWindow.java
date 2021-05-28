@@ -159,7 +159,7 @@ public class StartWindow extends JFrame implements ActionListener {
     // Alert Window
     JFrame alertWindow;
 
-   private static PacmanGame pac = new PacmanGame();
+   public static PacmanGame pac = new PacmanGame();
 
     private StartWindow(){
         CreateContent();
@@ -564,7 +564,7 @@ public class StartWindow extends JFrame implements ActionListener {
             createHelp();
         }
         else if (action.equals("Exit")) {
-            this.dispose();
+            System.exit(0);
         }
         else if (action.equals("Return")) {
             CreateContent();
